@@ -193,7 +193,7 @@ const AppSidebar = ({ onOpenChange }: { onOpenChange?: (open: boolean) => void }
             </TooltipContent>
           </Tooltip>
         </div>
-        <SidebarContent collapsed={collapsed} pathname={pathname} onLogoutClick={() => setLogoutConfirm(true)} onNavLinkClick={() => setCollapsed(true)} />
+        <SidebarContent collapsed={collapsed} pathname={pathname} onLogoutClick={() => setLogoutConfirm(true)} />
       </aside>
 
       {/* Mobile Sidebar */}

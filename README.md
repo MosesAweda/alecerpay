@@ -101,17 +101,17 @@ src/
 
 ### AppSidebar
 The main navigation component featuring:
-- Collapsible sidebar on desktop (collapses on nav link click)
-- Mobile-friendly sheet navigation
+- Collapsible sidebar on desktop (manual toggle button)
+- Mobile-friendly sheet navigation that closes on link click
 - Logout functionality with confirmation dialog
 - Help desk link
 - Organized navigation sections (Money Tools, Business, Support)
 
 ### Navigation
-- Responsive design (collapse on mobile, expand on desktop)
+- Responsive design (expand/collapse on desktop, closes on mobile link selection)
 - Active link highlighting
 - Tooltip support for collapsed state
-- Auto-collapse on link selection
+- Auto-close on mobile when selecting a navigation link
 
 ## Styling
 
@@ -129,7 +129,7 @@ The project uses Tailwind CSS with custom configuration. Theme colors are define
 
 ## License
 
-Proprietary - AlecerPay 2026*
+Proprietary - AlecerPay 2026
 
 ## Support
 
@@ -137,16 +137,5 @@ For help or questions:
 - Visit the [AlecerPay Help Desk](https://help.alecerpay.com)
 - Check documentation in the Settings page
 - Contact support through the app
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
 
  
