@@ -12,7 +12,7 @@ export default function Home() {
       <main className="flex-1 p-4 sm:p-5 md:p-6 overflow-auto">
         <div className="">
           <h1 className="text-xl sm:text-2xl font-bold text-foreground mb-1">Welcome back, Joy!</h1>
-          <p className="text-xs sm:text-base text-muted-foreground mb-6 sm:mb-8">Here's your financial overview</p>
+          <p className="text-xs sm:text-base text-muted-foreground mb-6 sm:mb-8">Here&apos;s your financial overview</p>
 
           <div className="space-y-4 sm:space-y-6">
             <WalletCards />
