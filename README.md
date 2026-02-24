@@ -1,4 +1,4 @@
-`# AlecerPay
+# AlecerPay
 
 A modern financial management application built with Next.js, React, and TypeScript. AlecerPay provides a comprehensive platform for managing wallets, sending/receiving money, currency conversion, and business operations.
 
