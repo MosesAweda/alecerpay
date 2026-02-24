@@ -48,7 +48,7 @@ const navSections = [
   },
 ];
 
-const SidebarContent = ({ collapsed = false, pathname, onLogoutClick }: { collapsed?: boolean; pathname: string; onLogoutClick?: () => void }) => (
+const SidebarContent = ({ collapsed = false, pathname, onLogoutClick, onNavLinkClick }: { collapsed?: boolean; pathname: string; onLogoutClick?: () => void; onNavLinkClick?: () => void }) => (
   <>
     {/* Logo & Collapse Button */}
     <div className="px-3 sm:px-4 md:px-5 py-3 md:py-2 flex items-center gap-2 justify-between">
@@ -85,6 +85,7 @@ const SidebarContent = ({ collapsed = false, pathname, onLogoutClick }: { collap
                     <TooltipTrigger asChild>
                       <Link
                         href={item.href}
+                        onClick={onNavLinkClick}
                         className={cn(
                           "w-full flex items-center gap-2 md:gap-3 px-2 md:px-3 py-1.5 md:py-2 rounded-lg text-xs md:text-sm font-medium transition-colors",
                           isActive
@@ -192,7 +193,7 @@ const AppSidebar = ({ onOpenChange }: { onOpenChange?: (open: boolean) => void }
             </TooltipContent>
           </Tooltip>
         </div>
-        <SidebarContent collapsed={collapsed} pathname={pathname} onLogoutClick={() => setLogoutConfirm(true)} />
+        <SidebarContent collapsed={collapsed} pathname={pathname} onLogoutClick={() => setLogoutConfirm(true)} onNavLinkClick={() => setCollapsed(true)} />
       </aside>
 
       {/* Mobile Sidebar */}
@@ -205,7 +206,7 @@ const AppSidebar = ({ onOpenChange }: { onOpenChange?: (open: boolean) => void }
           </SheetTrigger>
           <SheetContent side="left" className="w-[220px] bg-sidebar border-r border-sidebar-border p-0 flex flex-col">
             <div className="flex-1 flex flex-col h-full">
-              <SidebarContent collapsed={false} pathname={pathname} onLogoutClick={() => setLogoutConfirm(true)} />
+              <SidebarContent collapsed={false} pathname={pathname} onLogoutClick={() => setLogoutConfirm(true)} onNavLinkClick={() => setOpen(false)} />
             </div>
           </SheetContent>
         </Sheet>
