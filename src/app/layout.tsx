@@ -1,19 +1,19 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import AppSidebar from "@/components/AppSidebar";
 import "@/app/globals.css";
 import { Providers } from "./providers";
+import { LayoutWrapper } from "./layout-wrapper";
 
 
 export const metadata = {
   title: "AlecerPay - Financial Overview Dashboard",
   description: "Your financial overview dashboard",
- icons: {
+  icons: {
     icon: "/logo.svg",
   },
+};
 
-}
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -22,12 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <TooltipProvider>
             <Toaster />
             <Sonner />
-            <div className="flex min-h-screen bg-background">
-              <AppSidebar />
-              <div className="flex-1">
-                {children}
-              </div>
-            </div>
+            <LayoutWrapper>{children}</LayoutWrapper>
           </TooltipProvider>
         </Providers>
       </body>

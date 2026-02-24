@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { 
   LayoutDashboard, Wallet, ArrowLeftRight, Send, Download, CreditCard, 
@@ -10,6 +10,15 @@ import {
 import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 const navSections = [
   {
@@ -39,7 +48,7 @@ const navSections = [
   },
 ];
 
-const SidebarContent = ({ collapsed = false, pathname }: { collapsed?: boolean; pathname: string }) => (
+const SidebarContent = ({ collapsed = false, pathname, onLogoutClick }: { collapsed?: boolean; pathname: string; onLogoutClick?: () => void }) => (
   <>
     {/* Logo & Collapse Button */}
     <div className="px-3 sm:px-4 md:px-5 py-3 md:py-2 flex items-center gap-2 justify-between">
@@ -105,7 +114,7 @@ const SidebarContent = ({ collapsed = false, pathname }: { collapsed?: boolean; 
     <div className="px-2 md:px-3 mb-3">
       <Tooltip>
         <TooltipTrigger asChild>
-          <button className="w-full flex items-center gap-2 md:gap-3 px-2 md:px-3 py-1.5 md:py-2 rounded-lg text-xs md:text-sm font-medium text-destructive hover:bg-destructive/10 transition-colors">
+          <button onClick={onLogoutClick} className="w-full flex items-center gap-2 md:gap-3 px-2 md:px-3 py-1.5 md:py-2 rounded-lg text-xs md:text-sm font-medium text-destructive hover:bg-destructive/10 transition-colors">
             <LogOut className="w-4 h-4 flex-shrink-0" />
             {!collapsed && <span className="truncate">Logout</span>}
           </button>
@@ -138,12 +147,23 @@ const SidebarContent = ({ collapsed = false, pathname }: { collapsed?: boolean; 
 
 const AppSidebar = ({ onOpenChange }: { onOpenChange?: (open: boolean) => void }) => {
   const pathname = usePathname();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
+  const [logoutConfirm, setLogoutConfirm] = useState(false);
 
   const handleOpenChange = (newOpen: boolean) => {
     setOpen(newOpen);
     onOpenChange?.(newOpen);
+  };
+
+  const handleLogout = () => {
+    // Close the dialog
+    setLogoutConfirm(false);
+    // Close mobile menu if open
+    setOpen(false);
+    // Redirect to sign-in page
+    router.push("/sign-in");
   };
 
   return (
@@ -172,7 +192,7 @@ const AppSidebar = ({ onOpenChange }: { onOpenChange?: (open: boolean) => void }
             </TooltipContent>
           </Tooltip>
         </div>
-        <SidebarContent collapsed={collapsed} pathname={pathname} />
+        <SidebarContent collapsed={collapsed} pathname={pathname} onLogoutClick={() => setLogoutConfirm(true)} />
       </aside>
 
       {/* Mobile Sidebar */}
@@ -185,11 +205,32 @@ const AppSidebar = ({ onOpenChange }: { onOpenChange?: (open: boolean) => void }
           </SheetTrigger>
           <SheetContent side="left" className="w-[220px] bg-sidebar border-r border-sidebar-border p-0 flex flex-col">
             <div className="flex-1 flex flex-col h-full">
-              <SidebarContent collapsed={false} pathname={pathname} />
+              <SidebarContent collapsed={false} pathname={pathname} onLogoutClick={() => setLogoutConfirm(true)} />
             </div>
           </SheetContent>
         </Sheet>
       </div>
+
+      {/* Logout Confirmation Dialog */}
+      <AlertDialog open={logoutConfirm} onOpenChange={setLogoutConfirm}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Logout</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to log out?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="flex gap-3 justify-end">
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={handleLogout}
+              className="bg-destructive hover:bg-destructive/90"
+            >
+              Logout
+            </AlertDialogAction>
+          </div>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 };
